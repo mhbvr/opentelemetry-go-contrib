@@ -106,7 +106,7 @@ func UnaryClientInterceptor(opts ...Option) grpc.UnaryClientInterceptor {
 			span.SetStatus(codes.Error, s.Message())
 			span.SetAttributes(statusCodeAttr(s.Code()))
 		} else {
-			span.SetStatus(codes.Ok, "Success")
+			span.SetStatus(codes.Ok, "")
 			span.SetAttributes(statusCodeAttr(grpc_codes.OK))
 		}
 
@@ -288,7 +288,7 @@ func StreamClientInterceptor(opts ...Option) grpc.StreamClientInterceptor {
 				span.SetStatus(codes.Error, s.Message())
 				span.SetAttributes(statusCodeAttr(s.Code()))
 			} else {
-				span.SetStatus(codes.Ok, "Success")
+				span.SetStatus(codes.Ok, "")
 				span.SetAttributes(statusCodeAttr(grpc_codes.OK))
 			}
 
@@ -352,7 +352,7 @@ func UnaryServerInterceptor(opts ...Option) grpc.UnaryServerInterceptor {
 			messageSent.Event(ctx, 1, s.Proto())
 		} else {
 			statusCode = grpc_codes.OK
-			span.SetStatus(codes.Ok, "Success")
+			span.SetStatus(codes.Ok, "")
 			span.SetAttributes(statusCodeAttr(grpc_codes.OK))
 			messageSent.Event(ctx, 1, resp)
 		}
@@ -444,7 +444,7 @@ func StreamServerInterceptor(opts ...Option) grpc.StreamServerInterceptor {
 			span.SetStatus(statusCode, msg)
 			span.SetAttributes(statusCodeAttr(s.Code()))
 		} else {
-			span.SetStatus(codes.Ok, "Success")
+			span.SetStatus(codes.Ok, "")
 			span.SetAttributes(statusCodeAttr(grpc_codes.OK))
 		}
 
